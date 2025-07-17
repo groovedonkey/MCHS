@@ -83,31 +83,25 @@
     
             <nav class="w-full flex justify-center items-center pt-3 space-x-8">
                 <a href="#services" class="nav-link text-gray-600 hover:text-blue-500 transition-colors font-bold">Services</a>
-                <a href="#about" class="nav-link text-gray-600 hover:text-blue-500 transition-colors font-bold">About Us</a>
+                <a href="#about" class="nav-link text-gray-600 hover:text-blue-500 transition-colors font-bold">Why MCHS?</a>
                 <a href="#contact" class="nav-link text-gray-600 hover:text-blue-500 transition-colors font-bold">Contact</a>
             </nav>
         </div>
     </header>
 
     <main>
-        <!-- This empty div adds space at the top of the main content, preventing the fixed header from overlapping the first section initially. Its height can be adjusted. -->
         <div class="pt-48"></div>
 
         <section id="services" class="py-20 md:py-28 content-section">
             <div class="container mx-auto px-6 text-center">
                 <h2 class="text-3xl md:text-4xl font-bold mb-12 text-gray-800 section-title-stroke">Available Services</h2>
                 
-                <!-- The grid will display 1 column on small screens and 2 columns on medium screens and up -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <!-- Service Item 1 -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
                     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <!-- Image updated to 600x600. Removed fixed height class to maintain aspect ratio. -->
-                        <img src="https://placehold.co/600x600/e0e7ff/3730a3?text=Plumbing" alt="Plumbing Services" class="w-full object-cover">
+                        <img src="https://raw.githubusercontent.com/groovedonkey/MCHS/main/Service%201.png" alt="Plumbing Services" class="object-cover" style="width: 500px; height: 500px; opacity: 0.8;">
                     </div>
-                     <!-- Service Item 2 -->
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                         <!-- Image updated to 600x600. Removed fixed height class to maintain aspect ratio. -->
-                        <img src="https://placehold.co/600x600/d1fae5/047857?text=Electrical" alt="Electrical Services" class="w-full object-cover">
+                     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
+                        <img src="https://raw.githubusercontent.com/groovedonkey/MCHS/main/Service%202.png" alt="Electrical Services" class="object-cover" style="width: 500px; height: 500px; opacity: 0.8;">
                     </div>
                 </div>
             </div>
@@ -115,7 +109,7 @@
 
         <section id="about" class="py-20 md:py-28 content-section">
             <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800 section-title-stroke">About Us</h2>
+                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800 section-title-stroke">Why MCHS?</h2>
                 <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
                     <div class="md:w-1/2 text-left bg-white p-8 rounded-lg shadow-md">
                         <h3 class="text-2xl font-bold mb-4 text-blue-600">Our Story</h3>
@@ -125,8 +119,7 @@
                     </div>
                     <div class="md:w-1/2 w-full relative rounded-lg shadow-2xl overflow-hidden" style="height: 400px;">
                         <div id="slideshow-container">
-                            <!-- Slideshow images will be injected here by JavaScript -->
-                        </div>
+                            </div>
                         <button id="prevBtn" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/70 hover:bg-white text-gray-800 font-bold p-3 rounded-full shadow-md transition">
                             &#10094;
                         </button>
