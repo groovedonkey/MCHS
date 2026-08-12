@@ -1,0 +1,13 @@
+{
+  "name": "mchs-site",
+  "private": true,
+  "version": "1.0.0",
+  "description": "McCallum Handyman Services website",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/input.css -o ./styles.css --minify"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.3.3",
+    "tailwindcss": "^4.3.3"
+  }
+}

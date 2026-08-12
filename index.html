@@ -5,42 +5,53 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>McCallum Handyman Services | Local Handyman, Repairs & Remodels</title>
 <meta name="description" content="McCallum Handyman Services — residential & commercial repairs, remodels, painting, plumbing, pressure washing and more. Free estimates. Call 912-680-IFIX.">
+<meta name="robots" content="index, follow">
 <meta name="theme-color" content="#1E3FA8">
+<link rel="canonical" href="https://mchs-main.web.app/">
 
-<!-- Open Graph -->
+<!-- Open Graph / Facebook -->
+<meta property="og:site_name" content="McCallum Handyman Services">
 <meta property="og:title" content="McCallum Handyman Services">
 <meta property="og:description" content="Not your average handyman. Residential & commercial repairs, remodels and maintenance. Free estimates.">
-<meta property="og:image" content="images/logo.webp">
+<meta property="og:image" content="https://mchs-main.web.app/images/social-share.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:url" content="https://mchs-main.web.app/">
 <meta property="og:type" content="website">
+<meta property="og:locale" content="en_US">
 
-<link rel="icon" href="images/logo.webp" type="image/webp">
-<link rel="apple-touch-icon" href="images/logo.webp">
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="McCallum Handyman Services">
+<meta name="twitter:description" content="Not your average handyman. Residential & commercial repairs, remodels and maintenance. Free estimates.">
+<meta name="twitter:image" content="https://mchs-main.web.app/images/social-share.jpg">
+
+<link rel="icon" href="images/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="icon" href="images/icon-512.png" type="image/png" sizes="512x512">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+<!-- LocalBusiness structured data. NOTE: "areaServed" and "address" are left
+     generic on purpose — fill these in with the real service area / address
+     once confirmed (see project notes). Keeping placeholders here would hurt
+     local SEO more than omitting them. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "HomeAndConstructionBusiness",
+  "name": "McCallum Handyman Services",
+  "image": "https://mchs-main.web.app/images/social-share.jpg",
+  "url": "https://mchs-main.web.app/",
+  "telephone": "+19126804349",
+  "description": "Residential & commercial handyman services including painting, drywall, plumbing, electrical, carpentry, flooring, pressure washing, decks, patios, fences and full remodels. Free estimates.",
+  "priceRange": "$$"
+}
+</script>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          royal: {
-            50: '#EEF3FF',
-            100: '#DCE6FF',
-            light: '#3D63E0',
-            DEFAULT: '#1E3FA8',
-            dark: '#142B73',
-          }
-        },
-        fontFamily: {
-          sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        },
-      }
-    }
-  }
-</script>
+<link rel="stylesheet" href="styles.css">
 
 <style>
   html, body { background-color: #ffffff; }
