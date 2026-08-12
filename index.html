@@ -1,307 +1,538 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>McCallum Handyman Services</title>
-    
-    <script src="https://cdn.tailwindcss.com"></script>
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>McCallum Handyman Services | Local Handyman, Repairs & Remodels</title>
+<meta name="description" content="McCallum Handyman Services — residential & commercial repairs, remodels, painting, plumbing, pressure washing and more. Free estimates. Call 912-680-1FIX.">
+<meta name="theme-color" content="#1E3FA8">
 
-    <style>
-        /* Custom styles for the page */
-        body {
-            font-family: 'Inter', sans-serif;
-            background-image: url('https://raw.githubusercontent.com/groovedonkey/MCHS/main/McCallumHS.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: #1a202c; /* Default dark text */
-        }
+<!-- Open Graph -->
+<meta property="og:title" content="McCallum Handyman Services">
+<meta property="og:description" content="Not your average handyman. Residential & commercial repairs, remodels and maintenance. Free estimates.">
+<meta property="og:image" content="images/logo.webp">
+<meta property="og:type" content="website">
 
-        /* Header animation */
-        @keyframes floatDown {
-            from {
-                transform: translateY(-100%);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
+<link rel="icon" href="images/logo.webp" type="image/webp">
+<link rel="apple-touch-icon" href="images/logo.webp">
 
-        .header-animate {
-            animation: floatDown 0.8s ease-out forwards;
-        }
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-        /* Active navigation link style */
-        .nav-link-active {
-            color: #3b82f6; /* Blue-500 */
-            font-weight: 600;
-        }
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          royal: {
+            50: '#EEF3FF',
+            100: '#DCE6FF',
+            light: '#3D63E0',
+            DEFAULT: '#1E3FA8',
+            dark: '#142B73',
+          }
+        },
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        },
+      }
+    }
+  }
+</script>
 
-        /* Glassmorphism effect for content sections */
-        .content-section {
-            backdrop-filter: blur(0px);
-            -webkit-backdrop-filter: blur(0.8s);
-            border-top: 1px solid rgba(255, 255, 255, 0.3);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
-        }
+<style>
+  html, body { background-color: #ffffff; }
+  body { font-family: 'Inter', sans-serif; }
 
-        /* Slideshow transition */
-        .slide {
-            transition: opacity 1s ease-in-out;
-        }
-        
-        /* Style for section titles with a white stroke */
-        .section-title-stroke {
-            -webkit-text-stroke-width: 1.5px;
-            -webkit-text-stroke-color: white;
-            paint-order: stroke fill; /* Renders the stroke behind the text fill */
-        }
-    </style>
+  /* Skip link */
+  .skip-link {
+    position: absolute; left: -9999px; top: 0; z-index: 100;
+    background: #fff; color: #1E3FA8; padding: .75rem 1.25rem; border-radius: 0 0 .5rem 0; font-weight: 700;
+  }
+  .skip-link:focus { left: 0; }
+
+  /* Header shadow on scroll */
+  header.scrolled { box-shadow: 0 4px 20px -4px rgba(20,43,115,0.18); }
+
+  /* Scroll-reveal animation */
+  [data-animate] {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  [data-animate].in-view { opacity: 1; transform: translateY(0); }
+  [data-animate="fade"] { transform: none; }
+  [data-delay="1"] { transition-delay: .1s; }
+  [data-delay="2"] { transition-delay: .22s; }
+  [data-delay="3"] { transition-delay: .34s; }
+  [data-delay="4"] { transition-delay: .46s; }
+
+  /* Floating decorative blobs */
+  @keyframes floaty {
+    0%, 100% { transform: translate(0,0) scale(1); }
+    50% { transform: translate(-14px, 18px) scale(1.06); }
+  }
+  .blob {
+    position: absolute; border-radius: 9999px; filter: blur(50px);
+    background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.35), rgba(255,255,255,0));
+    animation: floaty 10s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  @keyframes softBounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-6px); }
+  }
+  .badge-bounce { animation: softBounce 3s ease-in-out infinite; }
+
+  /* Carousel */
+  #carousel-track { display: flex; transition: transform .55s cubic-bezier(.65,0,.35,1); }
+  .carousel-slide { flex: 0 0 100%; position: relative; }
+  .dot { width: .55rem; height: .55rem; border-radius: 9999px; background: #C7D3F5; transition: all .25s ease; }
+  .dot[aria-current="true"] { background: #1E3FA8; width: 1.5rem; }
+
+  /* Honeypot field — hidden from sighted users & keyboard, but present in DOM for bots */
+  .hp-field {
+    position: absolute !important;
+    left: -9999px !important;
+    top: -9999px !important;
+    width: 1px; height: 1px; overflow: hidden;
+  }
+
+  .btn-primary { background:#fff; color:#1E3FA8; }
+  .btn-primary:hover { background:#EEF3FF; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+</style>
 </head>
-<body class="bg-gray-100">
+<body class="text-gray-800 antialiased">
+<a href="#main" class="skip-link">Skip to content</a>
 
-    <header id="main-header" class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-sm shadow-md transition-all duration-300 opacity-0">
-        <div class="container mx-auto px-6 py-3">
-            <div class="flex justify-between items-center">
-                <div>
-                    <img src="https://github.com/groovedonkey/MCHS/blob/main/MCHS%20Logo.png?raw=true" alt="MCHS Logo" style="width: 150px;">
-                </div>
-    
-                <div>
-                    <a href="#contact">
-                        <img src="https://github.com/groovedonkey/MCHS/blob/main/JM%20Profile.png?raw=true" alt="Free Quote" style="width: 150px; margin-top: 10px;">
-                    </a>
-                </div>
-            </div>
-    
-            <nav class="w-full flex justify-center items-center pt-3 space-x-8">
-                <a href="#services" class="nav-link text-gray-600 hover:text-blue-500 transition-colors font-bold">Services</a>
-                <a href="#about" class="nav-link text-gray-600 hover:text-blue-500 transition-colors font-bold">Why MCHS?</a>
-                <a href="#contact" class="nav-link text-gray-600 hover:text-blue-500 transition-colors font-bold">Contact</a>
-            </nav>
+<!-- ============ HEADER ============ -->
+<header id="site-header" class="fixed top-0 inset-x-0 z-50 bg-white/95 backdrop-blur-sm border-b border-royal-100 transition-shadow duration-300">
+  <div class="container mx-auto px-4 md:px-6 py-2.5 md:py-3 flex items-center justify-between gap-3">
+    <a href="#top" class="shrink-0 flex items-center" aria-label="McCallum Handyman Services — home">
+      <img src="images/logo.webp" alt="McCallum Handyman Services" class="h-14 md:h-16 w-auto" width="480" height="480">
+    </a>
+
+    <a href="tel:+19126801349" class="inline-flex items-center gap-2 bg-royal hover:bg-royal-dark text-white font-bold text-sm sm:text-base py-2.5 px-4 sm:px-5 rounded-full shadow-md hover:shadow-lg active:scale-95 transition-all duration-200">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 sm:w-5 sm:h-5 shrink-0" aria-hidden="true">
+        <path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2Z"/>
+      </svg>
+      <span class="whitespace-nowrap">912-680-1FIX</span>
+    </a>
+  </div>
+</header>
+
+<main id="main">
+  <!-- ============ HERO ============ -->
+  <section id="top" class="relative overflow-hidden bg-gradient-to-br from-royal via-royal to-royal-dark text-white pt-28 pb-20 md:pt-40 md:pb-28">
+    <!-- background photo + overlay -->
+    <div class="absolute inset-0" aria-hidden="true">
+      <img src="images/hero-bg.webp" alt="" class="w-full h-full object-cover opacity-25" width="1920" height="1080">
+      <div class="absolute inset-0 bg-gradient-to-br from-royal/95 via-royal/90 to-royal-dark/95"></div>
+    </div>
+    <div class="blob w-72 h-72 -top-10 -left-10" aria-hidden="true"></div>
+    <div class="blob w-96 h-96 bottom-0 right-0" aria-hidden="true" style="animation-delay:2s"></div>
+
+    <div class="relative container mx-auto px-4 md:px-6 grid md:grid-cols-2 gap-12 items-center">
+      <div>
+        <p data-animate="fade" class="uppercase tracking-widest text-white/80 text-xs sm:text-sm font-semibold mb-4">
+          Residential &amp; Commercial &middot; Free Estimates
+        </p>
+        <h1 data-animate="fade" data-delay="1" class="text-4xl sm:text-5xl md:text-6xl font-extrabold leading-[1.08] mb-5">
+          Not Your Average <span class="relative inline-block">Handyman</span>
+        </h1>
+        <p data-animate="fade" data-delay="2" class="text-lg text-white/90 max-w-xl mb-7">
+          From leaky faucets to full remodels, McCallum Handyman Services shows up on time,
+          does the job right, and leaves your place cleaner than they found it.
+        </p>
+
+        <ul data-animate="fade" data-delay="2" class="flex flex-wrap gap-2 mb-9 list-none" aria-label="Services offered">
+          <li class="bg-white/10 border border-white/25 rounded-full px-3.5 py-1.5 text-sm backdrop-blur-sm">Painting &amp; Drywall</li>
+          <li class="bg-white/10 border border-white/25 rounded-full px-3.5 py-1.5 text-sm backdrop-blur-sm">Pressure Washing</li>
+          <li class="bg-white/10 border border-white/25 rounded-full px-3.5 py-1.5 text-sm backdrop-blur-sm">Plumbing &amp; Electrical</li>
+          <li class="bg-white/10 border border-white/25 rounded-full px-3.5 py-1.5 text-sm backdrop-blur-sm">Carpentry &amp; Flooring</li>
+          <li class="bg-white/10 border border-white/25 rounded-full px-3.5 py-1.5 text-sm backdrop-blur-sm">Decks, Patios &amp; Fences</li>
+          <li class="bg-white/10 border border-white/25 rounded-full px-3.5 py-1.5 text-sm backdrop-blur-sm">Small &amp; Full Remodels</li>
+        </ul>
+
+        <div data-animate="fade" data-delay="3" class="flex flex-col sm:flex-row gap-4">
+          <a href="tel:+19126801349" class="btn-primary inline-flex items-center justify-center gap-2 font-bold py-3.5 px-7 rounded-full shadow-lg hover:shadow-xl active:scale-95 transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2Z"/></svg>
+            Call Now: 912-680-1FIX
+          </a>
+          <a href="#contact" class="inline-flex items-center justify-center gap-2 font-bold py-3.5 px-7 rounded-full border-2 border-white/70 hover:bg-white/10 active:scale-95 transition-all duration-200">
+            Get a Free Quote
+          </a>
         </div>
-    </header>
+      </div>
 
-    <main>
-        <div class="pt-48"></div>
-
-        <section id="services" class="py-20 md:py-28 content-section">
-            <div class="container mx-auto px-6 text-center">
-                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-gray-800 section-title-stroke">Available Services</h2>
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 justify-items-center">
-                    <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <img src="https://raw.githubusercontent.com/groovedonkey/MCHS/main/Service%201.png" alt="Plumbing Services" class="object-cover" style="width: 300px; height: 300px; opacity: 0.8;">
-                    </div>
-                     <div class="bg-white rounded-lg shadow-lg overflow-hidden">
-                        <img src="https://raw.githubusercontent.com/groovedonkey/MCHS/main/Service%202.png" alt="Electrical Services" class="object-cover" style="width: 300px; height: 300px; opacity: 0.8;">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="py-20 md:py-28 content-section">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-gray-800 section-title-stroke">Why MCHS?</h2>
-                <div class="flex flex-col md:flex-row items-center gap-8 md:gap-12">
-                    <div class="md:w-1/2 text-left bg-white p-8 rounded-lg shadow-md">
-                        <h3 class="text-2xl font-bold mb-4 text-blue-600">Our Story</h3>
-                        <p class="text-gray-600 leading-relaxed">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
-                        </p>
-                    </div>
-                    <div class="md:w-1/2 w-full relative rounded-lg shadow-2xl overflow-hidden mx-auto" style="width: 450px; height: 450px;">
-                        <div id="slideshow-container">
-                            </div>
-                        <button id="prevBtn" class="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/70 hover:bg-white text-gray-800 font-bold p-3 rounded-full shadow-md transition">
-                            &#10094;
-                        </button>
-                        <button id="nextBtn" class="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/70 hover:bg-white text-gray-800 font-bold p-3 rounded-full shadow-md transition">
-                            &#10095;
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact" class="py-20 md:py-28 content-section">
-            <div class="container mx-auto px-6">
-                <h2 class="text-3xl md:text-4xl font-bold text-center mb-4 text-gray-800 section-title-stroke">Contact Us for a <strong>Free</strong> Quote</h2>
-                <p class="text-gray-700 text-center mb-12 max-w-2xl mx-auto"><strong>Ready to start your next project? Fill out the form below and we'll get back to you as soon as possible.</strong></p>
-                <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-gray-200">
-                    <form action="mailto:dro@groovedonkey.com" method="post" enctype="text/plain">
-                        <div class="mb-6">
-                            <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
-                            <input type="text" id="name" name="Name" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="phone" class="block text-gray-700 text-sm font-bold mb-2">Phone Number</label>
-                            <input type="tel" id="phone" name="Phone" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" required>
-                        </div>
-                        <div class="mb-6">
-                            <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email (Optional)</label>
-                            <input type="email" id="email" name="Email" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                         <div class="mb-6">
-                            <label for="message" class="block text-gray-700 text-sm font-bold mb-2">How can we help?</label>
-                            <textarea id="message" name="Message" rows="4" class="shadow appearance-none border rounded w-full py-3 px-4 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
-                        </div>
-                        <div class="text-center">
-                            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-8 rounded-lg transition-colors w-full md:w-auto">
-                                Submit
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="bg-gray-900/60 backdrop-blur-md text-white py-6">
-        <div class="container mx-auto px-6 text-center">
-            <p>&copy; 2024 McCallum Handyman Services. All Rights Reserved.</p>
+      <div data-animate="fade" data-delay="2" class="relative max-w-sm mx-auto md:max-w-none">
+        <div class="relative rounded-3xl overflow-hidden shadow-2xl ring-4 ring-white/10 aspect-[4/5]">
+          <img src="images/gallery-6.webp" alt="McCallum Handyman Services technician pressure washing a home exterior" class="w-full h-full object-cover" width="600" height="600" loading="lazy" decoding="async">
         </div>
-    </footer>
 
+        <div class="absolute -top-4 -right-4 sm:-right-8 badge-bounce bg-white text-royal font-bold text-sm rounded-2xl shadow-xl px-4 py-3 text-center leading-tight">
+          Free<br>Estimates
+        </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const header = document.getElementById('main-header');
+        <div class="absolute -bottom-6 -left-4 sm:-left-8 flex items-center gap-3 bg-white text-royal rounded-2xl shadow-xl pl-1.5 pr-4 py-1.5">
+          <img src="images/owner.webp" alt="Owner of McCallum Handyman Services" class="w-12 h-12 sm:w-14 sm:h-14 rounded-full object-cover ring-2 ring-royal-100" width="320" height="320" loading="lazy">
+          <span class="text-xs sm:text-sm font-bold leading-tight">Owner-<wbr>Operated</span>
+        </div>
+      </div>
+    </div>
+  </section>
 
-            // --- Header Animation ---
-            // Use a timeout to ensure the animation is visible after the page loads
-            setTimeout(() => {
-                header.classList.add('header-animate');
-                header.style.opacity = '1';
-            }, 100);
+  <!-- ============ CAROUSEL / RECENT WORK ============ -->
+  <section id="work" class="py-20 md:py-28 bg-white">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="text-center max-w-2xl mx-auto mb-12" data-animate>
+        <h2 class="text-3xl md:text-4xl font-extrabold text-royal mb-3">Recent Work</h2>
+        <p class="text-gray-600">A few examples of projects completed for happy neighbors.</p>
+      </div>
 
-            // --- Scroll-to-Top Offset for Fixed Header ---
-            // This function sets a top padding on the scroll container equal to the header's height,
-            // ensuring section titles aren't hidden behind the fixed header on navigation.
-            function setScrollPadding() {
-                const headerHeight = header.offsetHeight;
-                document.documentElement.style.scrollPaddingTop = `${headerHeight}px`;
-            }
-            // Set the padding on initial load and on window resize
-            setScrollPadding();
-            window.addEventListener('resize', setScrollPadding);
+      <div data-animate data-delay="1" class="max-w-2xl mx-auto">
+        <div id="carousel" class="relative rounded-2xl overflow-hidden shadow-xl bg-royal-50 aspect-square sm:aspect-[4/3]" role="region" aria-roledescription="carousel" aria-label="Recent work photos">
+          <div id="carousel-track" class="h-full">
+            <figure class="carousel-slide h-full">
+              <img src="images/gallery-6.webp" alt="Technician pressure washing vinyl siding and a wooden fence" class="absolute inset-0 w-full h-full object-cover" width="600" height="600" loading="eager" decoding="async">
+              <figcaption class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent text-white px-4 sm:px-5 py-4 text-sm sm:text-base font-semibold">Pressure Washing</figcaption>
+            </figure>
+            <figure class="carousel-slide h-full">
+              <img src="images/gallery-1.webp" alt="Before and after pressure washing comparison on vinyl siding" class="absolute inset-0 w-full h-full object-cover" width="600" height="600" loading="lazy" decoding="async">
+              <figcaption class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent text-white px-4 sm:px-5 py-4 text-sm sm:text-base font-semibold">Siding Before &amp; After</figcaption>
+            </figure>
+            <figure class="carousel-slide h-full">
+              <img src="images/gallery-2.webp" alt="Newly installed paver patio around a backyard pool" class="absolute inset-0 w-full h-full object-cover" width="600" height="600" loading="lazy" decoding="async">
+              <figcaption class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent text-white px-4 sm:px-5 py-4 text-sm sm:text-base font-semibold">Pool Deck &amp; Pavers</figcaption>
+            </figure>
+            <figure class="carousel-slide h-full">
+              <img src="images/gallery-3.webp" alt="Newly installed wood-look vinyl plank flooring in an empty room" class="absolute inset-0 w-full h-full object-cover" width="600" height="600" loading="lazy" decoding="async">
+              <figcaption class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent text-white px-4 sm:px-5 py-4 text-sm sm:text-base font-semibold">Flooring Installation</figcaption>
+            </figure>
+            <figure class="carousel-slide h-full">
+              <img src="images/gallery-4.webp" alt="Technician repairing pipes underneath a bathroom sink" class="absolute inset-0 w-full h-full object-cover" width="600" height="600" loading="lazy" decoding="async">
+              <figcaption class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent text-white px-4 sm:px-5 py-4 text-sm sm:text-base font-semibold">Plumbing Repair</figcaption>
+            </figure>
+            <figure class="carousel-slide h-full">
+              <img src="images/gallery-5.webp" alt="Well-maintained home exterior with a freshly cut lawn" class="absolute inset-0 w-full h-full object-cover" width="600" height="600" loading="lazy" decoding="async">
+              <figcaption class="absolute bottom-0 inset-x-0 bg-gradient-to-t from-black/70 to-transparent text-white px-4 sm:px-5 py-4 text-sm sm:text-base font-semibold">Exterior &amp; Lawn Upkeep</figcaption>
+            </figure>
+          </div>
 
+          <button id="carousel-prev" type="button" aria-label="Previous photo" class="absolute top-1/2 left-2 sm:left-4 -translate-y-1/2 bg-white/85 hover:bg-white text-royal rounded-full shadow-md w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center transition active:scale-90">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M15 18l-6-6 6-6"/></svg>
+          </button>
+          <button id="carousel-next" type="button" aria-label="Next photo" class="absolute top-1/2 right-2 sm:right-4 -translate-y-1/2 bg-white/85 hover:bg-white text-royal rounded-full shadow-md w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center transition active:scale-90">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5" aria-hidden="true"><path d="M9 18l6-6-6-6"/></svg>
+          </button>
 
-            // --- Smooth Scrolling for Anchor Links ---
-            // This script is now redundant because of `scroll-smooth` and the scroll padding,
-            // but is kept for browsers that might not fully support the CSS property.
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const targetId = this.getAttribute('href');
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        targetElement.scrollIntoView({
-                            behavior: 'smooth',
-                            block: 'start'
-                        });
-                    }
-                });
-            });
+          <span id="carousel-live" class="sr-only" aria-live="polite"></span>
+        </div>
 
-            // --- Slideshow ---
-            // Updated to use the 6 images provided
-            const slides = [
-                'https://github.com/groovedonkey/MCHS/blob/main/Image%201.png?raw=true',
-                'https://github.com/groovedonkey/MCHS/blob/main/Image%202.png?raw=true',
-                'https://github.com/groovedonkey/MCHS/blob/main/Image%203.png?raw=true',
-                'https://github.com/groovedonkey/MCHS/blob/main/Image%204.png?raw=true',
-                'https://github.com/groovedonkey/MCHS/blob/main/Image%205.png?raw=true',
-                'https://github.com/groovedonkey/MCHS/blob/main/Image%206.png?raw=true'
-            ];
-            let currentSlide = 0;
-            const slideshowContainer = document.getElementById('slideshow-container');
-            const nextBtn = document.getElementById('nextBtn');
-            const prevBtn = document.getElementById('prevBtn');
+        <div id="carousel-dots" class="flex justify-center gap-2 mt-5" role="tablist" aria-label="Choose photo"></div>
+      </div>
+    </div>
+  </section>
 
-            function showSlide(index) {
-                // Clear container
-                slideshowContainer.innerHTML = '';
-                // Create and append image
-                const img = document.createElement('img');
-                img.src = slides[index];
-                img.alt = `Slide ${index + 1}`;
-                img.className = 'slide w-full h-full object-cover absolute top-0 left-0 opacity-0';
-                slideshowContainer.appendChild(img);
-                
-                // Fade in the new image
-                setTimeout(() => img.style.opacity = '1', 50);
+  <!-- ============ CONTACT ============ -->
+  <section id="contact" class="py-20 md:py-28 bg-royal-50">
+    <div class="container mx-auto px-4 md:px-6">
+      <div class="grid md:grid-cols-5 gap-10 max-w-5xl mx-auto items-start">
 
-                currentSlide = index;
-            }
+        <div class="md:col-span-2" data-animate>
+          <h2 class="text-3xl md:text-4xl font-extrabold text-royal mb-4">Get a Free Quote</h2>
+          <p class="text-gray-600 mb-8">
+            Tell us a little about your project and we'll get back to you as soon as possible.
+          </p>
 
-            function nextSlide() {
-                let newIndex = currentSlide + 1;
-                if (newIndex >= slides.length) {
-                    newIndex = 0;
-                }
-                showSlide(newIndex);
-            }
+          <a href="tel:+19126801349" class="flex items-center gap-4 bg-royal text-white rounded-2xl shadow-md p-5 mb-6 hover:bg-royal-dark transition-colors">
+            <span class="shrink-0 bg-white/15 rounded-full w-11 h-11 flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-5 h-5" aria-hidden="true"><path d="M6.62 10.79a15.05 15.05 0 0 0 6.59 6.59l2.2-2.2a1 1 0 0 1 1.02-.24c1.12.37 2.33.57 3.57.57a1 1 0 0 1 1 1V20a1 1 0 0 1-1 1C10.61 21 3 13.39 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.24.2 2.45.57 3.57a1 1 0 0 1-.25 1.02l-2.2 2.2Z"/></svg>
+            </span>
+            <span>
+              <span class="block text-xs uppercase tracking-wide text-white/70 font-semibold">Prefer to talk now?</span>
+              <span class="block text-lg font-bold">912-680-1FIX</span>
+            </span>
+          </a>
 
-            function prevSlide() {
-                let newIndex = currentSlide - 1;
-                if (newIndex < 0) {
-                    newIndex = slides.length - 1;
-                }
-                showSlide(newIndex);
-            }
+          <ul class="space-y-3 text-gray-700">
+            <li class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1E3FA8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 shrink-0" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              Free, no-obligation estimates
+            </li>
+            <li class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1E3FA8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 shrink-0" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              Residential &amp; commercial projects
+            </li>
+            <li class="flex items-center gap-3">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1E3FA8" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 shrink-0" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>
+              Friendly, reliable service
+            </li>
+          </ul>
+        </div>
 
-            // Event Listeners
-            nextBtn.addEventListener('click', () => {
-                nextSlide();
-                resetInterval();
-            });
-            prevBtn.addEventListener('click', () => {
-                prevSlide();
-                resetInterval();
-            });
+        <div class="md:col-span-3" data-animate data-delay="1">
+          <form id="contact-form" novalidate class="bg-white p-6 sm:p-8 rounded-2xl shadow-lg border border-royal-100">
 
-            // Automatic transition
-            let slideInterval = setInterval(nextSlide, 10000);
+            <!-- Honeypot trap: real visitors never see or fill this field -->
+            <div class="hp-field" aria-hidden="true">
+              <label for="company">Company</label>
+              <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+            </div>
+            <input type="hidden" id="form-loaded-at" value="">
 
-            function resetInterval() {
-                clearInterval(slideInterval);
-                slideInterval = setInterval(nextSlide, 10000);
-            }
+            <div id="form-status" class="hidden mb-6 rounded-lg px-4 py-3 text-sm font-medium" role="status" aria-live="polite"></div>
 
-            // Initial slide
-            showSlide(0);
+            <div class="mb-5">
+              <label for="name" class="block text-gray-700 text-sm font-bold mb-2">Name</label>
+              <input type="text" id="name" name="Name" autocomplete="name" required
+                class="w-full border border-gray-300 rounded-lg py-3 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-royal-light focus:border-royal-light transition">
+            </div>
 
-            // --- Active Nav Link on Scroll ---
-            const sections = document.querySelectorAll('section[id]');
-            const navLinks = document.querySelectorAll('.nav-link');
+            <div class="mb-5">
+              <label for="phone" class="block text-gray-700 text-sm font-bold mb-2">Phone Number</label>
+              <input type="tel" id="phone" name="Phone" autocomplete="tel" required
+                pattern="^[0-9()+\-.\s]{7,}$"
+                class="w-full border border-gray-300 rounded-lg py-3 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-royal-light focus:border-royal-light transition">
+            </div>
 
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const id = entry.target.getAttribute('id');
-                        navLinks.forEach(link => {
-                            link.classList.remove('nav-link-active');
-                            if (link.getAttribute('href') === `#${id}`) {
-                                link.classList.add('nav-link-active');
-                            }
-                        });
-                    }
-                });
-            }, { rootMargin: '-50% 0px -50% 0px' }); // Activates when section is in middle of viewport
+            <div class="mb-5">
+              <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email <span class="font-normal text-gray-400">(optional)</span></label>
+              <input type="email" id="email" name="Email" autocomplete="email"
+                class="w-full border border-gray-300 rounded-lg py-3 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-royal-light focus:border-royal-light transition">
+            </div>
 
-            sections.forEach(section => {
-                observer.observe(section);
-            });
-        });
-    </script>
+            <div class="mb-5">
+              <label for="message" class="block text-gray-700 text-sm font-bold mb-2">How can we help?</label>
+              <textarea id="message" name="Message" rows="4" required
+                class="w-full border border-gray-300 rounded-lg py-3 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-royal-light focus:border-royal-light transition"></textarea>
+            </div>
+
+            <div class="mb-6">
+              <label for="spam-check" class="block text-gray-700 text-sm font-bold mb-2">
+                Quick check: <span id="spam-question">4 + 3</span> = ?
+              </label>
+              <input type="text" inputmode="numeric" id="spam-check" name="spam-check" required
+                autocomplete="off"
+                class="w-full sm:w-32 border border-gray-300 rounded-lg py-3 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-royal-light focus:border-royal-light transition">
+              <p class="text-xs text-gray-400 mt-1.5">This helps us keep spam bots out.</p>
+            </div>
+
+            <button type="submit" id="submit-btn"
+              class="w-full bg-royal hover:bg-royal-dark text-white font-bold py-3.5 px-8 rounded-lg shadow-md hover:shadow-lg active:scale-[0.98] transition-all duration-200">
+              Send Message
+            </button>
+
+            <p class="text-xs text-gray-400 text-center mt-4">
+              We respect your privacy — your information is only used to respond to your request.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="bg-royal-dark text-white/80 py-8">
+  <div class="container mx-auto px-4 md:px-6 text-center text-sm space-y-2">
+    <p class="font-semibold text-white">McCallum Handyman Services</p>
+    <p><a href="tel:+19126801349" class="hover:text-white transition-colors">912-680-1FIX</a></p>
+    <p>&copy; <span id="year"></span> McCallum Handyman Services. All Rights Reserved.</p>
+  </div>
+</footer>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  // --- Footer year ---
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // --- Header shadow on scroll ---
+  const header = document.getElementById('site-header');
+  const toggleHeaderShadow = () => header.classList.toggle('scrolled', window.scrollY > 8);
+  toggleHeaderShadow();
+  window.addEventListener('scroll', toggleHeaderShadow, { passive: true });
+
+  // --- Scroll padding so anchors clear the fixed header ---
+  function setScrollPadding() {
+    document.documentElement.style.scrollPaddingTop = header.offsetHeight + 'px';
+  }
+  setScrollPadding();
+  window.addEventListener('resize', setScrollPadding);
+
+  // --- Scroll-reveal animations ---
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const animatedEls = document.querySelectorAll('[data-animate]');
+  if (reduceMotion) {
+    animatedEls.forEach(el => el.classList.add('in-view'));
+  } else {
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+    animatedEls.forEach(el => revealObserver.observe(el));
+  }
+
+  // --- Carousel ---
+  const track = document.getElementById('carousel-track');
+  const slides = Array.from(track.children);
+  const dotsWrap = document.getElementById('carousel-dots');
+  const liveRegion = document.getElementById('carousel-live');
+  const prevBtn = document.getElementById('carousel-prev');
+  const nextBtn = document.getElementById('carousel-next');
+  const carousel = document.getElementById('carousel');
+  let index = 0;
+  let autoplayTimer = null;
+
+  slides.forEach((_, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'dot';
+    dot.setAttribute('role', 'tab');
+    dot.setAttribute('aria-label', 'Go to photo ' + (i + 1));
+    dot.addEventListener('click', () => { goTo(i); restartAutoplay(); });
+    dotsWrap.appendChild(dot);
+  });
+  const dots = Array.from(dotsWrap.children);
+
+  function goTo(i) {
+    index = (i + slides.length) % slides.length;
+    track.style.transform = 'translateX(-' + (index * 100) + '%)';
+    dots.forEach((d, di) => d.setAttribute('aria-current', di === index ? 'true' : 'false'));
+    const caption = slides[index].querySelector('figcaption');
+    liveRegion.textContent = 'Photo ' + (index + 1) + ' of ' + slides.length + (caption ? ': ' + caption.textContent : '');
+  }
+  function next() { goTo(index + 1); }
+  function prev() { goTo(index - 1); }
+
+  function startAutoplay() {
+    if (reduceMotion) return;
+    autoplayTimer = setInterval(next, 5000);
+  }
+  function stopAutoplay() { clearInterval(autoplayTimer); }
+  function restartAutoplay() { stopAutoplay(); startAutoplay(); }
+
+  nextBtn.addEventListener('click', () => { next(); restartAutoplay(); });
+  prevBtn.addEventListener('click', () => { prev(); restartAutoplay(); });
+
+  carousel.addEventListener('mouseenter', stopAutoplay);
+  carousel.addEventListener('mouseleave', startAutoplay);
+  carousel.addEventListener('focusin', stopAutoplay);
+  carousel.addEventListener('focusout', startAutoplay);
+
+  carousel.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft') { prev(); restartAutoplay(); }
+    if (e.key === 'ArrowRight') { next(); restartAutoplay(); }
+  });
+
+  // Touch swipe support
+  let touchStartX = null;
+  carousel.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    stopAutoplay();
+  }, { passive: true });
+  carousel.addEventListener('touchend', (e) => {
+    if (touchStartX === null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(delta) > 40) { delta < 0 ? next() : prev(); }
+    touchStartX = null;
+    startAutoplay();
+  }, { passive: true });
+
+  goTo(0);
+  startAutoplay();
+
+  // --- Contact form: spam-hardened, mailto-based submission ---
+  const form = document.getElementById('contact-form');
+  const statusBox = document.getElementById('form-status');
+  const loadedAtField = document.getElementById('form-loaded-at');
+  const submitBtn = document.getElementById('submit-btn');
+  loadedAtField.value = Date.now();
+
+  // Generate a small, human-solvable math challenge on the fly
+  const a = 2 + Math.floor(Math.random() * 6);
+  const b = 2 + Math.floor(Math.random() * 6);
+  document.getElementById('spam-question').textContent = a + ' + ' + b;
+  const expectedAnswer = a + b;
+
+  function showStatus(message, kind) {
+    statusBox.textContent = message;
+    statusBox.classList.remove('hidden', 'bg-green-50', 'text-green-700', 'bg-red-50', 'text-red-700');
+    statusBox.classList.add(kind === 'error' ? 'bg-red-50' : 'bg-green-50', kind === 'error' ? 'text-red-700' : 'text-green-700');
+  }
+
+  // Assemble the recipient address at submit-time (kept out of page source to deter scrapers)
+  function getRecipient() {
+    const user = 'dro', domain = 'groovedonkey.com';
+    return user + '@' + domain;
+  }
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    // 1) Honeypot — if a bot filled this hidden field, silently drop the submission
+    const honeypot = document.getElementById('company').value.trim();
+    if (honeypot !== '') {
+      showStatus('Thanks! Your message has been sent.', 'success');
+      form.reset();
+      return;
+    }
+
+    // 2) Time-trap — real visitors take at least a few seconds to fill out a form
+    const elapsed = Date.now() - Number(loadedAtField.value || 0);
+    if (elapsed < 3000) {
+      showStatus('Please take a moment to fill out the form, then try again.', 'error');
+      return;
+    }
+
+    // 3) Native field validation
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    // 4) Math challenge
+    const answer = document.getElementById('spam-check').value.trim();
+    if (Number(answer) !== expectedAnswer) {
+      showStatus('That answer doesn’t look right — please try the math check again.', 'error');
+      return;
+    }
+
+    // All checks passed — hand off to the visitor's email client
+    const name = document.getElementById('name').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    const subject = 'New Quote Request from ' + name;
+    const body =
+      'Name: ' + name + '\n' +
+      'Phone: ' + phone + '\n' +
+      'Email: ' + (email || 'Not provided') + '\n\n' +
+      'Message:\n' + message;
+
+    const mailtoLink = 'mailto:' + getRecipient() +
+      '?subject=' + encodeURIComponent(subject) +
+      '&body=' + encodeURIComponent(body);
+
+    showStatus('Opening your email app to send your message… If nothing happens, please call/text us at 912-680-1FIX.', 'success');
+    submitBtn.disabled = true;
+    setTimeout(() => { submitBtn.disabled = false; }, 1500);
+    window.location.href = mailtoLink;
+  });
+});
+</script>
 
 </body>
 </html>

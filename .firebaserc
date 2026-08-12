@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "mchs-79e29"
+  },
+  "targets": {
+    "mchs-79e29": {
+      "hosting": {
+        "main": [
+          "mchs-main"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

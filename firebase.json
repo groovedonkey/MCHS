@@ -1,0 +1,33 @@
+{
+  "hosting": {
+    "target": "main",
+    "public": ".",
+    "ignore": [
+      "firebase.json",
+      ".git/**",
+      ".firebase/**",
+      "**/.*",
+      "**/node_modules/**",
+      "*.md",
+      "MCHS Logo.png",
+      "McCallumHS.png",
+      "JM Profile.png",
+      "Service 1.png",
+      "Service 2.png",
+      "Image 1.png",
+      "Image 2.png",
+      "Image 3.png",
+      "Image 4.png",
+      "Image 5.png",
+      "Image 6.png"
+    ],
+    "headers": [
+      {
+        "source": "**/*.@(webp|png|jpg|jpeg|svg)",
+        "headers": [
+          { "key": "Cache-Control", "value": "public, max-age=604800, immutable" }
+        ]
+      }
+    ]
+  }
+}
