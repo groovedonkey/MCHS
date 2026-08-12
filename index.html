@@ -324,7 +324,7 @@
             <div class="mb-5">
               <label for="phone" class="block text-gray-700 text-sm font-bold mb-2">Phone Number</label>
               <input type="tel" id="phone" name="Phone" autocomplete="tel" required
-                pattern="^[0-9()+\-.\s]{7,}$"
+                pattern="^[0-9\(\)+\-.\s]{7,}$"
                 class="w-full border border-gray-300 rounded-lg py-3 px-4 text-gray-700 focus:outline-none focus:ring-2 focus:ring-royal-light focus:border-royal-light transition">
             </div>
 
@@ -374,7 +374,23 @@
   </div>
 </footer>
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
+import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+
+// Public client config — safe to expose; access is governed by Firestore
+// security rules (see firestore.rules), not by keeping this secret.
+const firebaseConfig = {
+  projectId: "mchs-79e29",
+  appId: "1:710166012441:web:ae7c45ff5a818324d30088",
+  storageBucket: "mchs-79e29.firebasestorage.app",
+  apiKey: "AIzaSyAga6k-Bgtyh4fFVrnXBhsQ8oKuKYcudrg",
+  authDomain: "mchs-79e29.firebaseapp.com",
+  messagingSenderId: "710166012441"
+};
+const firebaseApp = initializeApp(firebaseConfig);
+const db = getFirestore(firebaseApp);
+
 document.addEventListener('DOMContentLoaded', function () {
 
   // --- Footer year ---
@@ -479,7 +495,7 @@ document.addEventListener('DOMContentLoaded', function () {
   goTo(0);
   startAutoplay();
 
-  // --- Contact form: spam-hardened, mailto-based submission ---
+  // --- Contact form: spam-hardened, saves leads to Firestore ---
   const form = document.getElementById('contact-form');
   const statusBox = document.getElementById('form-status');
   const loadedAtField = document.getElementById('form-loaded-at');
@@ -498,13 +514,7 @@ document.addEventListener('DOMContentLoaded', function () {
     statusBox.classList.add(kind === 'error' ? 'bg-red-50' : 'bg-green-50', kind === 'error' ? 'text-red-700' : 'text-green-700');
   }
 
-  // Assemble the recipient address at submit-time (kept out of page source to deter scrapers)
-  function getRecipient() {
-    const user = 'dro', domain = 'groovedonkey.com';
-    return user + '@' + domain;
-  }
-
-  form.addEventListener('submit', function (e) {
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
 
     // 1) Honeypot — if a bot filled this hidden field, silently drop the submission
@@ -535,27 +545,38 @@ document.addEventListener('DOMContentLoaded', function () {
       return;
     }
 
-    // All checks passed — hand off to the visitor's email client
+    // All checks passed — save the lead to Firestore (see firestore.rules
+    // for the server-side validation that backs this up)
     const name = document.getElementById('name').value.trim();
     const phone = document.getElementById('phone').value.trim();
     const email = document.getElementById('email').value.trim();
     const message = document.getElementById('message').value.trim();
 
-    const subject = 'New Quote Request from ' + name;
-    const body =
-      'Name: ' + name + '\n' +
-      'Phone: ' + phone + '\n' +
-      'Email: ' + (email || 'Not provided') + '\n\n' +
-      'Message:\n' + message;
-
-    const mailtoLink = 'mailto:' + getRecipient() +
-      '?subject=' + encodeURIComponent(subject) +
-      '&body=' + encodeURIComponent(body);
-
-    showStatus('Opening your email app to send your message… If nothing happens, please call/text us at 912-680-IFIX.', 'success');
     submitBtn.disabled = true;
-    setTimeout(() => { submitBtn.disabled = false; }, 1500);
-    window.location.href = mailtoLink;
+    const originalBtnText = submitBtn.textContent;
+    submitBtn.textContent = 'Sending…';
+
+    try {
+      await addDoc(collection(db, 'leads'), {
+        name: name,
+        phone: phone,
+        email: email,
+        message: message,
+        status: 'new',
+        source: 'website',
+        page: window.location.href.slice(0, 300),
+        userAgent: navigator.userAgent.slice(0, 300),
+        createdAt: serverTimestamp()
+      });
+      showStatus('Thanks! Your message has been sent — we’ll be in touch soon. You can also call/text us anytime at 912-680-IFIX.', 'success');
+      form.reset();
+    } catch (err) {
+      console.error('Lead submission failed:', err);
+      showStatus('Something went wrong sending your message. Please call/text us directly at 912-680-IFIX, or email john@mchsproperties.com.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = originalBtnText;
+    }
   });
 });
 </script>
